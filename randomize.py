@@ -11,7 +11,11 @@ def parse_args():
     """Setup argument-parser and parse command line arguments. Arguments are validated before returning."""
     parser = argparse.ArgumentParser(description='Random loot table generator')
     parser.add_argument('-s', '--seed', dest='seed', type=int, help='The seed you want to use for generating the random loot table. If none is specified, a random seed will be used.')
-    parser.add_argument('--mix', nargs='*', help= 'All folders you want to mix. Valid values are the following: {}. If you omit any of them in your list, its values won\'t be shuffled with the others but instead stay vanilla. If not specified, everything will be shuffled.'.format(', '.join(valid_folders)))
+    parser.add_argument('--mix', nargs='*', action='append',
+    help= f"A set of folders you want to mix. Valid values are the following: {', '.join(valid_folders)}. " \
+    "If you omit any of them in all of your lists, its values won\'t be shuffled with the others but instead stay vanilla. " \
+    "If not specified, everything will be shuffled. You can specify multiple --mix sets which not be mixed with the other sets. " \
+    "However each folder can only appear once of course.")
 
     args = parser.parse_args()
     validate_args(args)
